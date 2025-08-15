@@ -1,24 +1,19 @@
-# Compiled Object files
-*.o
-*.obj
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Compiled Static libraries
-*.a
-*.lib
-
-# Executables
-*.exe
-
-# DUB
 .dub
 docs.json
 __dummy.html
 docs/
-
-# Code coverage
+/ddiff
+ddiff.so
+ddiff.dylib
+ddiff.dll
+ddiff.a
+ddiff.lib
+ddiff-test-*
+*.exe
+*.pdb
+*.o
+*.obj
 *.lst
+*.a
+*.so
+*.dylib

@@ -1,0 +1,11 @@
+{
+  "authors": ["Sergei Giniatulin"],
+  "copyright": "Copyright © 2025, Sergei Giniatulin",
+  "dependencies": {
+    "gamut": "~>3.3.2"
+  },
+  "targetType": "executable",
+  "description": "Image diff pixel-by-pixel",
+  "license": "MIT",
+  "name": "ddiff"
+}
