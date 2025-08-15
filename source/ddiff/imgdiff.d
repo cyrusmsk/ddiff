@@ -1,6 +1,7 @@
 module ddiff.imgdiff;
 
 import std.range : iota;
+import std.parallelism;
 
 import gamut;
 import ddiff.yiq;
@@ -19,7 +20,7 @@ struct Result {
 
 /// Diff between two images.
 Result imageDiff(ref Image image1, ref Image image2, Options options) {
-    ulong diffPixelsCount = 0;
+    static ulong diffPixelsCount = 0;
     auto maxDelta = MAX_DELTA * options.threshold * options.threshold;
 
     Image diff;
@@ -27,13 +28,14 @@ Result imageDiff(ref Image image1, ref Image image2, Options options) {
 
     image1.copyPixelsTo(diff);
 
-    ulong diffPixelsCounter = 0;
-    foreach(y; iota(0, diff.height())) {
+    static ulong diffPixelsCounter;
+    auto lines = iota(0, diff.height());
+    foreach(y; lines) {
         diffPixelsCounter = 0;
         ubyte* scan1 = cast(ubyte*) diff.scanptr(y);
         ubyte* scan2 = cast(ubyte*) image2.scanptr(y);
 
-        foreach(x; iota(0, diff.width(), 1)) {
+        foreach(x; iota(0, diff.width())) {
             ubyte a_r = scan1[4*x + 0];
             ubyte a_g = scan1[4*x + 1];
             ubyte a_b = scan1[4*x + 2];
