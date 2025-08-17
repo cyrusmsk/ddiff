@@ -1,7 +1,6 @@
 module ddiff.imgdiff;
 
 import std.range : iota;
-import std.parallelism;
 
 import gamut;
 import ddiff.yiq;
