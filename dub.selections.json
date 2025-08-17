@@ -1,6 +1,8 @@
 {
 	"fileVersion": 1,
 	"versions": {
+		"commandr": "1.1.0",
+		"console-colors": "1.3.1",
 		"gamut": "3.3.2",
 		"intel-intrinsics": "1.12.1",
 		"miniz": "0.0.2"

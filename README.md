@@ -15,6 +15,11 @@ Use help instructions:
 ddiff --help
 ```
 
+### TODO:
+[ ] Add colors
+
+[ ] Change CLI interface from getopt to commandr
+
 ## Used libraries
 - Image library [gamut](https://github.com/AuburnSounds/gamut)
 - Colors for console [console-colors](https://github.com/p0nce/console-colors)

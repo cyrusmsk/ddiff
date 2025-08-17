@@ -1,11 +1,18 @@
 {
-  "authors": ["Sergei Giniatulin"],
-  "copyright": "Copyright © 2025, Sergei Giniatulin",
-  "dependencies": {
-    "gamut": "~>3.3.2"
-  },
-  "targetType": "executable",
-  "description": "Image diff pixel-by-pixel",
-  "license": "MIT",
-  "name": "ddiff"
+	"authors": [
+		"Sergei Giniatulin"
+	],
+	"copyright": "Copyright © 2025, Sergei Giniatulin",
+	"dependencies": {
+		"commandr": "~>1.1.0",
+		"console-colors": "~>1.3.1",
+		"gamut": "~>3.3.2"
+	},
+	"description": "Image diff pixel-by-pixel",
+	"dflags-ldc": [
+		"-mcpu=native"
+	],
+	"license": "MIT",
+	"name": "ddiff",
+	"targetType": "executable"
 }
