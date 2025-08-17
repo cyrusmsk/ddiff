@@ -1,6 +1,13 @@
 # Comparison
 Save imgdiff and odiff from release page of both projects
 
+```bash
+Summary
+  ./odiff-macos-arm64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png ran
+    1.28 ± 0.01 times faster than ./ddiff.exe --file1='../data/www_cypress_io.png' --file2='../data/www_cypress_io.png'
+    2.09 ± 0.03 times faster than ./imgdiff-darwin-amd64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png
+```
+
 ## Building ddiff:
 ```bash
 dub build -b=release

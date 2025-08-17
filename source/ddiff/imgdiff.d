@@ -57,10 +57,9 @@ Result imageDiff(ref Image image1, ref Image image2, Options options) {
                 }
             }
         }
-    }
-
-    if (diffPixelsCounter > 0) {
-        diffPixelsCount += diffPixelsCounter;
+        if (diffPixelsCounter > 0) {
+            diffPixelsCount += diffPixelsCounter;
+        }
     }
 
     return Result(diffPixelsCount == 0, diffPixelsCount, diff.saveToMemory(options.imgFormat));
