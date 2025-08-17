@@ -1,11 +1,8 @@
-# Comparison
-Save imgdiff and odiff from release page of both projects
+# Comparison with other solutions
+
+To run the comparison save `imgdiff` and `odiff` from release page of both projects
 
 ```bash
-Summary
-  ./odiff-macos-arm64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png ran
-    1.28 ± 0.01 times faster than ./ddiff.exe --file1='../data/www_cypress_io.png' --file2='../data/www_cypress_io.png'
-    2.09 ± 0.03 times faster than ./imgdiff-darwin-amd64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png
 ```
 
 ## Building ddiff:
@@ -17,8 +14,8 @@ mv ddiff comparison/ddiff.exe
 ## Getting other solutions
 Use release page in GitHub of each project and your OS/architecture:
 
-- imgdiff: https://github.com/n7olkachev/imgdiff/releases/tag/v1.0.0
-- odiff: https://github.com/dmtrKovalenko/odiff/releases
+- imgdiff [release page](https://github.com/n7olkachev/imgdiff/releases/tag/v1.0.0)
+- odiff [release page](https://github.com/dmtrKovalenko/odiff/releases)
 
 ## Command
 Comparison of all solutions with `hyperfine`:
@@ -26,15 +23,15 @@ Comparison of all solutions with `hyperfine`:
 hyperfine -r 3 -w 2 "./odiff-macos-arm64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png" "./ddiff.exe --file1='../data/www_cypress_io.png' --file2='../data/www_cypress_io.png'" "./imgdiff-darwin-amd64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png"
 ```
 
-Comparison of each solution:
+Check the time of a single solution:
 ```bash
 /usr/bin/time ./ddiff.exe --file1='../data/www_cypress_io.png' --file2='../data/www_cypress_io.png'
 ```
 
 ```bash
-/usr/bin/time ./imgdiff-darwin-amd64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png     
+/usr/bin/time ./imgdiff-darwin-amd64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png
 ```
 
 ```bash
-/usr/bin/time ./odiff-macos-arm64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png     
+/usr/bin/time ./odiff-macos-arm64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png
 ```

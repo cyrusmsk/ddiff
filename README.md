@@ -1,7 +1,7 @@
 
 # Ddiff
 
-Simple pixel-by-pixel comparison library for D language, based on Gamut library
+Simple pixel-by-pixel comparison library for D language
 
 ## Build from source
 Run in root folder:
@@ -9,9 +9,17 @@ Run in root folder:
 dub build -b=release
 ```
 
-## References
-Originial project in OCaml
-https://github.com/dmtrKovalenko/odiff
+## Usage
+Use help instructions:
+```bash
+ddiff --help
+```
 
-Go port
-https://github.com/n7olkachev/imgdiff
+## Used libraries
+- Image library [gamut](https://github.com/AuburnSounds/gamut)
+- Colors for console [console-colors](https://github.com/p0nce/console-colors)
+- CLI tool [commandr](https://github.com/robik/commandr)
+
+## References
+- Originial project in OCaml [odiff](https://github.com/dmtrKovalenko/odiff)
+- Port in Go [imgdiff](https://github.com/n7olkachev/imgdiff)
