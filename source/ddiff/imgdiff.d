@@ -1,6 +1,9 @@
 module ddiff.imgdiff;
 
 import std.range : iota;
+import std.algorithm : sum;
+import std.parallelism : parallel;
+import std.typecons;
 
 import gamut;
 import ddiff.yiq;
@@ -14,53 +17,60 @@ struct Options {
 struct Result {
     bool equal;
     ulong diffPixelsCount;
-    ubyte[] image;
+    Image* image;
 }
 
 /// Diff between two images.
 Result imageDiff(ref Image image1, ref Image image2, Options options) {
-    static ulong diffPixelsCount = 0;
     auto maxDelta = MAX_DELTA * options.threshold * options.threshold;
 
-    Image diff;
-    diff.createNoInit(image1.width(), image1.height(), PixelType.rgba8);
+    Image* diff = new Image(image1.width(), image1.height(), PixelType.rgba8);
 
-    image1.copyPixelsTo(diff);
+    (*diff).createNoInit(image1.width(), image1.height(), PixelType.rgba8);
 
-    static ulong diffPixelsCounter;
-    auto lines = iota(0, diff.height());
-    foreach(y; lines) {
-        diffPixelsCounter = 0;
-        ubyte* scan1 = cast(ubyte*) diff.scanptr(y);
-        ubyte* scan2 = cast(ubyte*) image2.scanptr(y);
+    if (options.diffImage)
+        image1.copyPixelsTo(*diff);
 
-        foreach(x; iota(0, diff.width())) {
-            ubyte a_r = scan1[4*x + 0];
-            ubyte a_g = scan1[4*x + 1];
-            ubyte a_b = scan1[4*x + 2];
-            ubyte a_a = scan1[4*x + 3];
+    enum N = 8;
+    ulong[N] diffPixelsCounts;
+    int mid = cast(int) image1.height() / N;
 
-            ubyte b_r = scan2[4*x + 0];
-            ubyte b_g = scan2[4*x + 1];
-            ubyte b_b = scan2[4*x + 2];
-            ubyte b_a = scan2[4*x + 3];
+    foreach(id; parallel(iota(0,N), 1)) {
+        ulong diffPixelsCounter = 0;
+        foreach(y; id*mid..id*mid + mid) {
+            ubyte* scan = cast(ubyte*) (*diff).scanptr(y);
+            ubyte* scan1 = cast(ubyte*) image1.scanptr(y);
+            ubyte* scan2 = cast(ubyte*) image2.scanptr(y);
 
-            if (a_r != b_r && a_g != b_g && a_b != b_b && a_a != b_a) {
-                auto deltaValue = delta(a_r, a_g, a_b, b_r, b_g, b_b);
-                if (deltaValue > maxDelta) {
-                    scan1[4*x + 0] = 255;
-                    scan1[4*x + 1] = 0;
-                    scan1[4*x + 2] = 0;
-                    scan1[4*x + 3] = 255;
+            foreach(x; iota(0, (*diff).width())) {
+                ubyte a_r = scan1[4*x + 0];
+                ubyte a_g = scan1[4*x + 1];
+                ubyte a_b = scan1[4*x + 2];
+                ubyte a_a = scan1[4*x + 3];
 
-                    diffPixelsCounter++;
+                ubyte b_r = scan2[4*x + 0];
+                ubyte b_g = scan2[4*x + 1];
+                ubyte b_b = scan2[4*x + 2];
+                ubyte b_a = scan2[4*x + 3];
+
+                if (a_r != b_r || a_g != b_g || a_b != b_b || a_a != b_a) {
+                    immutable deltaValue = delta(a_r, a_g, a_b, b_r, b_g, b_b);
+                    if (deltaValue > maxDelta) {
+                        scan[4*x + 0] = 255;
+                        scan[4*x + 1] = 0;
+                        scan[4*x + 2] = 0;
+                        scan[4*x + 3] = 255;
+
+                        diffPixelsCounter++;
+                    }
                 }
             }
         }
         if (diffPixelsCounter > 0) {
-            diffPixelsCount += diffPixelsCounter;
+            diffPixelsCounts[id] = diffPixelsCounter;
         }
     }
+    ulong diffPixelsCount = sum(diffPixelsCounts[]);
 
-    return Result(diffPixelsCount == 0, diffPixelsCount, diff.saveToMemory(options.imgFormat));
+    return Result(diffPixelsCount == 0, diffPixelsCount, diff);
 }
