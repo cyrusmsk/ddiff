@@ -17,7 +17,7 @@ struct Options {
 struct Result {
     bool equal;
     ulong diffPixelsCount;
-    Image* image;
+    RefCounted!(Image*, RefCountedAutoInitialize.no) image;
 }
 
 /// Diff between two images.
@@ -72,5 +72,5 @@ Result imageDiff(ref Image image1, ref Image image2, Options options) {
     }
     ulong diffPixelsCount = sum(diffPixelsCounts[]);
 
-    return Result(diffPixelsCount == 0, diffPixelsCount, diff);
+    return Result(diffPixelsCount == 0, diffPixelsCount, diff.refCounted);
 }

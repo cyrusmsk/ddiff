@@ -13,7 +13,7 @@ Summary
 With saving diff file:
 ```bash
 Summary
-  ./ddiff.exe --file1='../data/water-4k.png' --file2='../data/water-4k-2.png' --output='./ddiff-out.ong' ran
+  ./ddiff.exe --file1='../data/water-4k.png' --file2='../data/water-4k-2.png' --output='./ddiff-out.png' ran
     1.65 ± 0.02 times faster than ./imgdiff-darwin-amd64.exe ../data/water-4k.png ../data/water-4k-2.png ./imgdiff-out.png
     1.92 ± 0.01 times faster than ./odiff-macos-arm64.exe ../data/water-4k.png ../data/water-4k-2.png ./odiff-out.png
 ```
@@ -40,7 +40,7 @@ hyperfine -r 3 -w 2 "./odiff-macos-arm64.exe ../data/www_cypress_io.png ../data/
 
 with saving diff on water-4k file:
 ```bash
-hyperfine -i -r 3 -w 2 "./odiff-macos-arm64.exe ../data/water-4k.png ../data/water-4k-2.png odiff-out.png" "./ddiff.exe --file1='../data/water-4k.png' --file2='../data/water-4k-2.png' --output='ddiff-out.ong'" "./imgdiff-darwin-amd64.exe ../data/water-4k.png ../data/water-4k-2.png imgdiff-out.png"
+hyperfine -i -r 3 -w 2 "./odiff-macos-arm64.exe ../data/water-4k.png ../data/water-4k-2.png odiff-out.png" "./ddiff.exe --file1='../data/water-4k.png' --file2='../data/water-4k-2.png' --output='ddiff-out.png'" "./imgdiff-darwin-amd64.exe ../data/water-4k.png ../data/water-4k-2.png imgdiff-out.png"
 ```
 
 Comparison of a single solution:
