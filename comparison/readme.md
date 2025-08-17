@@ -31,7 +31,8 @@ Use release page in GitHub of each project and your OS/architecture:
 - odiff [release page](https://github.com/dmtrKovalenko/odiff/releases)
 
 ## Command
-Comparison of all solutions with `hyperfine`:
+Comparison of all solutions with `hyperfine`
+
 without saving diff on cypress file:
 ```bash
 hyperfine -r 3 -w 2 "./odiff-macos-arm64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png" "./ddiff.exe --file1='../data/www_cypress_io.png' --file2='../data/www_cypress_io.png'" "./imgdiff-darwin-amd64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png"
@@ -42,7 +43,7 @@ with saving diff on water-4k file:
 hyperfine -i -r 3 -w 2 "./odiff-macos-arm64.exe ../data/water-4k.png ../data/water-4k-2.png odiff-out.png" "./ddiff.exe --file1='../data/water-4k.png' --file2='../data/water-4k-2.png' --output='ddiff-out.ong'" "./imgdiff-darwin-amd64.exe ../data/water-4k.png ../data/water-4k-2.png imgdiff-out.png"
 ```
 
-Comparison of single solutions:
+Comparison of a single solution:
 ```bash
 /usr/bin/time ./ddiff.exe --file1='../data/www_cypress_io.png' --file2='../data/www_cypress_io.png'
 ```
