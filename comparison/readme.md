@@ -23,7 +23,7 @@ Use release page in GitHub of each project and your OS/architecture:
 ## Command
 Comparison of all solutions with `hyperfine`:
 ```bash
-hyperfine -i -w 3 "odiff-macos-arm64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png" "ddiff.exe --file1='../data/www_cypress_io.png' --file2='../data/www_cypress_io.png'" "imgdiff-darwin-amd64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png"
+hyperfine -r 3 -w 2 "./odiff-macos-arm64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png" "./ddiff.exe --file1='../data/www_cypress_io.png' --file2='../data/www_cypress_io.png'" "./imgdiff-darwin-amd64.exe ../data/www_cypress_io.png ../data/www_cypress_io.png"
 ```
 
 Comparison of each solution:
